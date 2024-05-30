@@ -33,5 +33,6 @@ jobs:
       with:
         ultralight-secret-key: ${{secrets.ULTRALIGHT_GH_ACTION_SECRET_KEY}}
         test-report-path: python/junit.xml
+        ultralight-url: https://staging.ultralightlabs.com
         ultralight-product-id: ${{secrets.ULTRALIGHT_GH_ACTION_PRODUCT_ID}}
 
