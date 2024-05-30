@@ -25,7 +25,7 @@ jobs:
       uses: ultralightlabs/ultralight-github-action@main
       with:
         ultralight-secret-key: ${{secrets.ULTRALIGHT_GH_ACTION_SECRET_KEY}}
-        test-report-path: junit.xml
+        test-report-path: python/junit.xml
         test-steps-directory-path: test_protocols
         ultralight-url: https://staging.ultralightlabs.com
         ultralight-product-id: ${{secrets.ULTRALIGHT_GH_ACTION_PRODUCT_ID}}
