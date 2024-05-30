@@ -1,0 +1,35 @@
+name: Pytest
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    - name: Move to Python directory
+      run: cd python
+    - name: Install dependencies
+      run: pip install
+    - name: Run tests
+      run: pytest --junit-xml=junit.xml test.py
+    - uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: report.xml
+        path: python/junit.xml
+        retention-days: 1
+    
+    - name: Report to Ultralight
+      uses: ultralightlabs/ultralight-github-action@main
+      with:
+        ultralight-secret-key: ${{secrets.ULTRALIGHT_GH_ACTION_SECRET_KEY}}
+        test-report-path: python/junit.xml
+        ultralight-product-id: ${{secrets.ULTRALIGHT_GH_ACTION_PRODUCT_ID}}
+
