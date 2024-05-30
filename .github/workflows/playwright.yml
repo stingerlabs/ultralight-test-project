@@ -24,11 +24,11 @@ jobs:
       run: PLAYWRIGHT_JUNIT_OUTPUT_NAME=playwright-report/results.xml npx playwright test
     
     - name: Report to Ultralight
-      if: always()
+      if: !cancelled()
       uses: ultralightlabs/ultralight-github-action@main
       with:
         ultralight-secret-key: ${{secrets.ULTRALIGHT_GH_ACTION_SECRET_KEY}}
-        test-report-path: next/playwright-report/results.xml
+        test-report-path: playwright-report/results.xml
         ultralight-url: https://staging.ultralightlabs.com
         ultralight-product-id: ${{secrets.ULTRALIGHT_GH_ACTION_PRODUCT_ID}}
-        test-steps-directory-path: next/test_protocols
+        test-steps-directory-path: test_protocols

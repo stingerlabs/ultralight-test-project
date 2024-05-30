@@ -20,19 +20,13 @@ jobs:
       run: pip install -r requirements.txt
     - name: Run tests
       run: pytest --junit-xml=junit.xml test.py
-    # - uses: actions/upload-artifact@v4
-    #   if: always()
-    #   with:
-    #     name: report.xml
-    #     path: python/junit.xml
-    #     retention-days: 1
-    
     - name: Report to Ultralight
-      if: always()
+      if: !cancelled()
       uses: ultralightlabs/ultralight-github-action@main
       with:
         ultralight-secret-key: ${{secrets.ULTRALIGHT_GH_ACTION_SECRET_KEY}}
-        test-report-path: python/junit.xml
+        test-report-path: junit.xml
+        test-steps-directory-path: test_protocols
         ultralight-url: https://staging.ultralightlabs.com
         ultralight-product-id: ${{secrets.ULTRALIGHT_GH_ACTION_PRODUCT_ID}}
 
