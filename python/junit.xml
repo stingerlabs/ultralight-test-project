@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="3" time="0.025" timestamp="2024-05-30T13:43:54.478682" hostname="Shivs-MacBook-Pro-2.local"><testcase classname="test" name="VER-1 test insert success" time="0.003" /><testcase classname="test" name="VER-2 test getting incorrect key raises error" time="0.000" /><testcase classname="test" name="VER-3 test getting correct key raises exception (this will always fail)" time="0.000"><failure message="Failed: DID NOT RAISE &lt;class 'Exception'&gt;">record_xml_attribute = &lt;bound method _NodeReporter.add_attribute of &lt;_pytest.junitxml._NodeReporter object at 0x10188c140&gt;&gt;
+
+    def test_getting_correct_key_raises_exception(record_xml_attribute):
+        record_xml_attribute("name", "VER-3 test getting correct key raises exception (this will always fail)")
+        hash_table = BadHashTable()
+        hash_table.insert('hello', 'world')
+&gt;       with pytest.raises(Exception):
+E       Failed: DID NOT RAISE &lt;class 'Exception'&gt;
+
+test.py:23: Failed</failure></testcase></testsuite></testsuites>
