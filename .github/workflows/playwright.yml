@@ -22,12 +22,6 @@ jobs:
       run: npx playwright install --with-deps chromium
     - name: Run Playwright tests
       run: PLAYWRIGHT_JUNIT_OUTPUT_NAME=playwright-report/results.xml npx playwright test
-    # - uses: actions/upload-artifact@v4
-    #   if: always()
-    #   with:
-    #     name: results.xml
-    #     path: playwright-report/results.xml
-    #     retention-days: 1
     
     - name: Report to Ultralight
       if: always()

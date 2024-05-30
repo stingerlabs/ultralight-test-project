@@ -1,0 +1,9 @@
+ultralight-test-id: VER-1
+title: Test Insert Success
+description: Tests whether or not items can be successfully inserted in the hash table
+steps:
+  - step: Insert item
+    acceptance_criteria: 
+  - step: Retrieve item
+    acceptance_criteria:
+  - step: Check if item retrieved is same as item inserted
