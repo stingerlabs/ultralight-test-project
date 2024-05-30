@@ -21,7 +21,7 @@ jobs:
     - name: Run tests
       run: pytest --junit-xml=junit.xml test.py
     - name: Report to Ultralight
-      if: !cancelled()
+      if: always()
       uses: ultralightlabs/ultralight-github-action@main
       with:
         ultralight-secret-key: ${{secrets.ULTRALIGHT_GH_ACTION_SECRET_KEY}}
