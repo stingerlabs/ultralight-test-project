@@ -8,29 +8,30 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    defaults:
+        run:
+          working-directory: ./next
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
       with:
         node-version: lts/*
-    - name: Move to NextJS directory
-      run: cd next
     - name: Install dependencies
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Run Playwright tests
       run: PLAYWRIGHT_JUNIT_OUTPUT_NAME=results.xml npx playwright test
-    - uses: actions/upload-artifact@v4
-      if: always()
-      with:
-        name: results.xml
-        path: playwright-report/results.xml
-        retention-days: 1
+    # - uses: actions/upload-artifact@v4
+    #   if: always()
+    #   with:
+    #     name: results.xml
+    #     path: playwright-report/results.xml
+    #     retention-days: 1
     
     - name: Report to Ultralight
       uses: ultralightlabs/ultralight-github-action@main
       with:
         ultralight-secret-key: ${{secrets.ULTRALIGHT_GH_ACTION_SECRET_KEY}}
-        test-report-path: test-results/junit.xml
+        test-report-path: playwright-report/results.xml
         ultralight-product-id: ${{secrets.ULTRALIGHT_GH_ACTION_PRODUCT_ID}}
