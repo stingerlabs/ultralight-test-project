@@ -1,0 +1,8 @@
+ultralight-test-id: VER-4
+title: Has Hello World on homepage
+description: Rendering test for Hello World div
+steps:
+  - step: Navigate to homepage
+    acceptance_criteria: Successfully navigated to homepage
+  - step: Check if "Hello world!" text is visible
+    acceptance_criteria: "Hello world!" text is visible

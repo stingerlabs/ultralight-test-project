@@ -31,3 +31,4 @@ jobs:
         test-report-path: next/playwright-report/results.xml
         ultralight-url: https://staging.ultralightlabs.com
         ultralight-product-id: ${{secrets.ULTRALIGHT_GH_ACTION_PRODUCT_ID}}
+        test-steps-directory-path: next/test_protocols
