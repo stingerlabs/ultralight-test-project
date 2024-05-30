@@ -30,6 +30,7 @@ jobs:
     #     retention-days: 1
     
     - name: Report to Ultralight
+      if: always()
       uses: ultralightlabs/ultralight-github-action@main
       with:
         ultralight-secret-key: ${{secrets.ULTRALIGHT_GH_ACTION_SECRET_KEY}}
