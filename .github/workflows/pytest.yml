@@ -17,7 +17,7 @@ jobs:
       with:
         python-version: '3.12'
     - name: Install dependencies
-      run: pip install
+      run: pip install requirements.txt
     - name: Run tests
       run: pytest --junit-xml=junit.xml test.py
     # - uses: actions/upload-artifact@v4
