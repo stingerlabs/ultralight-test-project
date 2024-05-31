@@ -3,7 +3,7 @@ title: Test Insert Success
 description: Tests whether or not items can be successfully inserted in the hash table
 steps:
   - step: Insert item
-    acceptance_criteria: 
+    acceptance_criteria: Item insertion is successful
   - step: Retrieve item
-    acceptance_criteria:
+    acceptance_criteria: Item retrieval is successful
   - step: Check if item retrieved is same as item inserted
