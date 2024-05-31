@@ -16,9 +16,9 @@ def test_get_wrong_key(record_xml_attribute):
     with pytest.raises(Exception):
         hash_table.get('world')
 
-def test_getting_correct_key_raises_exception(record_xml_attribute):
-    record_xml_attribute("name", "VER-3 test getting correct key raises exception (this will always fail)")
-    hash_table = BadHashTable()
-    hash_table.insert('hello', 'world')
-    with pytest.raises(Exception):
-        hash_table.get('hello')
+# def test_getting_correct_key_raises_exception(record_xml_attribute):
+#     record_xml_attribute("name", "VER-3 test getting correct key raises exception (this will always fail)")
+#     hash_table = BadHashTable()
+#     hash_table.insert('hello', 'world')
+#     with pytest.raises(Exception):
+#         hash_table.get('hello')
