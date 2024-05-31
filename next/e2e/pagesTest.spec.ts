@@ -14,7 +14,7 @@ test('VER-5 clicking on Test! link opens test page', async ({ page }) => {
   await expect(page.getByText('This is a test page!')).toBeVisible();
 });
 
-test('VER-6 always fails', async ({ page }) => {
-  await page.goto('http://localhost:3000/');
-  await expect(page.getByText('This text does not and will not exist!')).toBeVisible();
-})
+// test('VER-6 always fails', async ({ page }) => {
+//   await page.goto('http://localhost:3000/');
+//   await expect(page.getByText('This text does not and will not exist!')).toBeVisible();
+// })
