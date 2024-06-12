@@ -1,0 +1,34 @@
+name: Playwright Tests
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    defaults:
+        run:
+          working-directory: ./next
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+    - name: Install dependencies
+      run: npm ci
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps chromium
+    - name: Run Playwright tests
+      run: PLAYWRIGHT_JUNIT_OUTPUT_NAME=playwright-report/results.xml npx playwright test
+    
+    - name: Report to Ultralight
+      if: always()
+      uses: ultralightlabs/ultralight-github-action@v1
+      with:
+        ultralight-api-key: ${{secrets.ULTRALIGHT_GH_ACTION_SECRET_KEY}}
+        ultralight-product-id: ${{secrets.ULTRALIGHT_GH_ACTION_PRODUCT_ID}}
+        test-execution-report-path: next/playwright-report/results.xml
+        test-protocol-definitions-directory-path: next/test_protocols
+        ultralight-url: https://staging.ultralightlabs.com
