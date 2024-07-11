@@ -5,4 +5,4 @@ steps:
   - step: Insert item
     acceptance_criteria: Item insertion is successful
   - step: Retrieve item
-    acceptance_criteria: Item retrieval is same as item inserted
+    acceptance_criteria: Item retrieved is same as item inserted
