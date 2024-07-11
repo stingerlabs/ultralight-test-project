@@ -1,4 +1,4 @@
-ultralight_test_id: VER-1
+ultralight-test_id: VER-1
 title: Test Hash Table Insert Success
 description: Tests whether or not items can be successfully inserted in the hash table
 steps:
