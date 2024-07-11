@@ -1,4 +1,4 @@
-ultralight-test-id: VER-4
+ultralight_test_id: VER-4
 title: Has Hello World on homepage
 description: Rendering test for Hello World div
 steps:
