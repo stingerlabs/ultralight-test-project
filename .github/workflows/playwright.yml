@@ -24,7 +24,7 @@ jobs:
       run: PLAYWRIGHT_JUNIT_OUTPUT_NAME=playwright-report/results.xml npx playwright test
     
     - name: Report to Ultralight
-      if: always()
+      if: github.ref == 'refs/heads/main'
       uses: ultralightlabs/ultralight-github-action@v1
       with:
         ultralight-api-key: ${{secrets.ULTRALIGHT_GH_ACTION_SECRET_KEY}}
