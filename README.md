@@ -12,7 +12,7 @@ The [next](/next) and [python](/python) apps in this sample project have been co
 ## Test Protocol Definitions
 Each test case must be written in the following format:
 ```yaml
-ultralight-test-id: number
+ultralight_test_id: number
 title: string
 description: string
 steps:
