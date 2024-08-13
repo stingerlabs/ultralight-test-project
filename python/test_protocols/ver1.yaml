@@ -1,6 +1,6 @@
 ultralight_test_id: VER-1
 title: Test Hash Table Insert Success
-description: Tests whether or not items can be successfully inserted in the hash table
+description: Tests whether or not an item can be successfully inserted in the hash table
 steps:
   - step: Insert item
     acceptance_criteria: Operation is successful
