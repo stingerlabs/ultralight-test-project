@@ -5,4 +5,4 @@ steps:
   - step: Insert item
     acceptance_criteria: Insert doesn't raise an exception
   - step: Retrieve item
-    acceptance_criteria: Item retrieved is same as the item which was inserted
+    acceptance_criteria: Item retrieved is same as the item  inserted
