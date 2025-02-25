@@ -27,6 +27,7 @@ jobs:
       if: github.ref == 'refs/heads/main'
       uses: ultralightlabs/ultralight-github-action@v1
       with:
+        command: REPORT_TEST
         ultralight-api-key: ${{secrets.ULTRALIGHT_GH_ACTION_SECRET_KEY}}
         ultralight-product-id: ${{secrets.ULTRALIGHT_GH_ACTION_PRODUCT_ID}}
         test-execution-report-path: next/playwright-report/results.xml
