@@ -1,11 +1,9 @@
 name: Report Commit
 on:
   pull_request:
-    types: [edited]
-  push:
-    branches-ignore: [main, master]
+    types: [opened, edited, reopened, synchronize]
 jobs:
-  release:
+  report-commit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -14,28 +12,8 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Get PR details on push
-        if: ${{ github.event_name == 'push' }}
-        run: >-
-          echo "SHA=${{ github.sha }}" >> $GITHUB_ENV;
-          echo "PR_URL=$(gh pr view --json url --jq '.url')" >> $GITHUB_ENV;
-          echo "$(gh pr view --json body --jq '.body')" > pr-body.md
-        env:
-          # token used to fetch PR details with the github CLI `gh pr view`
-          GITHUB_TOKEN: ${{ github.token }}
-
-      - name: Get PR details on PR edit
-        if: ${{ github.event_name == 'pull_request' }}
-        run: >-
-          echo "SHA=${{ github.event.pull_request.head.sha }}" >> $GITHUB_ENV;
-          echo "PR_URL=${{ github.event.pull_request.html_url }}" >> $GITHUB_ENV;
-          echo '${{ github.event.pull_request.body }}' > pr-body.md
-
       - name: Report commit to Ultralight
         uses: ultralightlabs/ultralight-github-action@v1
         with:
           command: REPORT_COMMIT
           ultralight-api-key: ${{secrets.ULTRALIGHT_GH_ACTION_SECRET_KEY}}
-          commit-hash: ${{ env.SHA }}
-          pr-url: ${{ env.PR_URL }}
-          pr-description-file-path: pr-body.md
