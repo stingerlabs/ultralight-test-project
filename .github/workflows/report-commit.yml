@@ -21,5 +21,6 @@ jobs:
 
       - name: Next step
         run: |
-          echo '${{ steps.report-commit.outputs.merge-block }}'
+          echo '${{ steps.report-commit.outputs.merge-allowed }}'
+          echo '${{ steps.report-commit.outputs.report-commit-data }}' | jq '.mergeAllowed'
           echo '${{ steps.report-commit.outputs.report-commit-data }}' | jq '.updatedSoftwarePartVersions'
