@@ -1,0 +1,35 @@
+name: Release Pull Request
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+  pull_request_review:
+    types: [submitted]
+jobs:
+  report-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Report commit to Ultralight
+        id: report-commit
+        uses: ultralightlabs/ultralight-github-action@v1
+        with:
+          command: REPORT_COMMIT
+          ultralight-api-key: ${{secrets.ULTRALIGHT_GH_ACTION_SECRET_KEY}}
+      - if: ${{ steps.report-commit.outputs.merge-allowed == 'true' }}
+        name: Set status to success
+        run: |
+          echo "::success::This pull request can be merged."
+          echo '${{ steps.report-commit.outputs.report-commit-data }}' | jq '.updatedSoftwarePartVersions'
+          echo '${{ steps.report-commit.outputs.report-commit-data }}' | jq '.mergeAllowed.details'
+      - if: ${{ steps.report-commit.outputs.merge-allowed != 'true' }}
+        name: Set status to waiting and add annotation with full details
+        run: |
+          echo "::error::This pull request cannot be merged yet."
+          echo '${{ steps.report-commit.outputs.report-commit-data }}' | jq '.updatedSoftwarePartVersions'
+          echo '${{ steps.report-commit.outputs.report-commit-data }}' | jq '.mergeAllowed.details.releases.releasesWithErrors[].errors[]'
+          exit 1

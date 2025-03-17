@@ -1,0 +1,54 @@
+name: Release Push to Main
+on:
+  push:
+    branches:
+      - main
+jobs:
+  report-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Get PR details on push
+        run: >-
+          COMMIT_MESSAGE=$(git log -1 --pretty=%B);
+          echo "Commit message: $COMMIT_MESSAGE";
+          PR_NUMBER=$(echo "$COMMIT_MESSAGE" | grep -oE 'Merge pull request #[0-9]+' | grep -oE '[0-9]+');
+          echo "PR Number: $PR_NUMBER";
+          if [[ -n "$PR_NUMBER" ]]; then
+            echo "PR_URL=$(gh pr view $PR_NUMBER --json url --jq '.url')" >> $GITHUB_ENV;
+            echo "$(gh pr view $PR_NUMBER --json body --jq '.body')" > pr-body.md;
+          else
+            exit 1;
+          fi     
+        env:
+          # token used to fetch PR details with the github CLI `gh pr view`
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Report commit to Ultralight
+        id: report-commit
+        uses: ultralightlabs/ultralight-github-action@v1
+        with:
+          command: REPORT_COMMIT
+          ultralight-api-key: ${{secrets.ULTRALIGHT_GH_ACTION_SECRET_KEY}}
+          pr-url: ${{ env.PR_URL }}
+          commit-hash: ${{ github.sha }}
+          is-merge-commit: true
+          pr-description-file-path: pr-body.md
+      - if: ${{ steps.report-commit.outputs.merge-allowed == 'true' }}
+        name: Set status to success
+        run: |
+          echo "::success::This pull request can be merged."
+          echo '${{ steps.report-commit.outputs.report-commit-data }}' | jq '.updatedSoftwarePartVersions'
+          echo '${{ steps.report-commit.outputs.report-commit-data }}' | jq '.mergeAllowed.details'
+      - if: ${{ steps.report-commit.outputs.merge-allowed != 'true' }}
+        name: Set status to waiting and add annotation with full details
+        run: |
+          echo "::error::This pull request cannot be merged yet."
+          echo '${{ steps.report-commit.outputs.report-commit-data }}' | jq '.updatedSoftwarePartVersions'
+          echo '${{ steps.report-commit.outputs.report-commit-data }}' | jq '.mergeAllowed.details.releases.releasesWithErrors[].errors[]'
+          exit 1
