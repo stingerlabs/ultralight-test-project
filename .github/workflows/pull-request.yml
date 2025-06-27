@@ -16,7 +16,7 @@ jobs:
 
       - name: Report commit to Ultralight
         id: report-commit
-        uses: ultralightlabs/ultralight-github-action@v1
+        uses: stingerlabs/ultralight-github-action@v1
         with:
           command: REPORT_COMMIT
           ultralight-api-key: ${{secrets.ULTRALIGHT_GH_ACTION_SECRET_KEY}}
