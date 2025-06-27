@@ -25,7 +25,7 @@ jobs:
     
     - name: Report to Ultralight
       if: github.ref == 'refs/heads/main'
-      uses: ultralightlabs/ultralight-github-action@v1
+      uses: stingerlabs/ultralight-github-action@v1
       with:
         command: REPORT_TEST
         ultralight-api-key: ${{secrets.ULTRALIGHT_GH_ACTION_SECRET_KEY}}
